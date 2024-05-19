@@ -387,7 +387,7 @@ void stage2(void) {
   memcpy((void * )(kbase + ptrace_p2), "\xE9\x7C\x02\x00\x00", 5);
 
    //patch sceSblACMgrIsAllowedSystemLevelDebugging
- memcpy((void * )(kbase + sceSblACMgrIsAllowedSystemLevelDebugging_p), "\x48\xC7\xC0\x01\x00\x00\x00\xC3", 8); //900
+ memcpy((void * )(kbase + sceSblACMgrIsAllowedSystemLevelDebugging_p), "\x31\xC0\xFF\xC0\xC3", 5); //900
 #endif
   // patch ASLR, thanks 2much4u
   *(uint16_t * )(kbase + disable_aslr_p) = 0x9090;
@@ -454,6 +454,20 @@ void stage2(void) {
   kmem[1] = 0xE9;
 #endif
 #else
+#if FIRMWARE == 903 // FW 9.03, 9.00 already has goldhen
+	// Patch debug setting errors
+	kmem = (uint8_t *)&kbase[0x004e6d48];
+	kmem[0] = 0x00;
+	kmem[1] = 0x00;
+	kmem[2] = 0x00;
+	kmem[3] = 0x00;
+
+	kmem = (uint8_t *)&kbase[0x004e802f];
+	kmem[0] = 0x00;
+	kmem[1] = 0x00;
+	kmem[2] = 0x00;
+	kmem[3] = 0x00;
+#endif
 #if FIRMWARE == 1100 // FW 11.00, 9.00 already has goldhen
 	// Patch debug setting errors
 	kmem = (uint8_t *)&kbase[0x004EE328];

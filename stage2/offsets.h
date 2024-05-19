@@ -113,6 +113,66 @@
 
 #elif (FIRMWARE == 903 || FIRMWARE == 904) // FW 9.03/9.04
 
+#if FIRMWARE == 903
+
+#if ENABLE_DEBUG_MENU
+
+// ShellCore offsets
+#define enable_data_mount_patch 0x00321F2B
+#define enable_fpkg_patch 0x003DA06F
+#define fake_free_patch 0x00FD5BD1
+#define pkg_installer_patch 0x00A13101
+#define ext_hdd_patch 0x0061A66D
+#define debug_trophies_patch 0x00745809
+
+#define sceKernelIsGenuineCEX 0x0016F014
+#define sceKernelIsGenuineCEX_1 0x00864744
+#define sceKernelIsGenuineCEX_2 0x008B2232
+#define sceKernelIsGenuineCEX_3 0x00A2A254
+#define dipsw_libSceDipsw 0x0016F042
+#define dipsw_libSceDipsw_1 0x0024A4EB
+#define dipsw_libSceDipsw_2 0x00864772
+#define dipsw_libSceDipsw_3 0x00A2A282
+
+// debug menu libkernel_sys.prx
+#define sys_debug_menu 0x1D1C0 // Identical to 9.00
+#define sys_debug_menu_1 0x1D520 // Identical to 9.00
+
+#endif
+
+// libkernel_sys.srpx
+#define _scePthreadAttrInit_offset 0x0014190 // Identical to 9.00
+#define _scePthreadAttrSetstacksize_offset 0x00141B0 // Identical to 9.00
+#define _scePthreadCreate_offset 0x145D0 // Identical to 9.00
+#define _thr_initial_offset 0x8E830 // Identical to 9.00
+
+//kern
+#define vm_map_protect_p 0x00080B8B // Identical to 9.00
+#define ptrace_p 0x41D455
+#define ptrace_p2 0x41D941
+#define disable_aslr_p 0x5F824 // Identical to 9.00
+#define sceSblACMgrIsAllowedSystemLevelDebugging_p 0x0001D1C0 // Identical to 9.00
+#define kemem_2 0x37A144
+#define kemem_1 0x37A13C
+#define vm_map_lock_offset 0x0007BA30 // Identical to 9.00
+#define vm_map_insert_offset 0x0007CD80 // Identical to 9.00
+#define vm_map_unlock_offset 0x0007BAA0 // Identical to 9.00
+#define malloc_offset 0x003017B0
+#define free_offset 0x00301970
+#define vm_map_lock_read_offset 0x0007BB80 // Identical to 9.00
+#define vm_map_unlock_read_offset 0x0007BBD0 // Identical to 9.00
+#define vm_map_lookup_entry_offset 0x0007C1C0 // Identical to 9.00
+#define M_TEMP_offset 0x0155E1E0
+#define proc_rmem_offset 0x0041CA70
+#define vm_map_findspace_offset 0x0007EC40 // Identical to 9.00
+#define vm_map_delete_offset 0x0007E680 // Identical to 9.00
+#define create_thread_offset 0x001ED620
+#define all_proc_offset 0x01B906E0
+#define sys_dynlib_dlsym_p 0x0023B34F
+#define sys_dynlib_dlsym_p2 0x00221810
+
+#endif
+
 #define kdlsym_addr_Xfast_syscall 0xffffffff822001c0 // Identical to 9.00
 
 #define kdlsym_addr_printf 0xffffffff822b79e0
@@ -329,7 +389,7 @@
 #define _thr_initial_offset 0x8E830
 
 //kern
-#define vm_map_protect_p 0x0035C710
+#define vm_map_protect_p 0x35C8EC
 #define ptrace_p 0x00384285
 #define ptrace_p2 0x00384771
 #define disable_aslr_p 0x003B11A4
